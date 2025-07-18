@@ -15,14 +15,47 @@ const Contact = () => {
     project: '',
     message: ''
   });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<string|null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent",
-      description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: '', email: '', project: '', message: '' });
+    setSubmitting(true);
+    setSubmitStatus(null);
+    try {
+      const formElement = e.target as HTMLFormElement;
+      const formDataObj = new FormData(formElement);
+      const response = await fetch("https://formspree.io/f/xwpqprra", {
+        method: "POST",
+        body: formDataObj,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+      if (response.ok) {
+        setSubmitStatus("success");
+        toast({
+          title: "Message Sent",
+          description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+        });
+        setFormData({ name: '', email: '', project: '', message: '' });
+      } else {
+        setSubmitStatus("error");
+        toast({
+          title: "Submission Failed",
+          description: "There was a problem sending your message. Please try again later.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+      toast({
+        title: "Submission Failed",
+        description: "Network error. Please try again later.",
+        variant: "destructive"
+      });
+    }
+    setSubmitting(false);
   };
 
   const contactInfo = [
@@ -91,12 +124,7 @@ const Contact = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form 
-                  action="https://formspree.io/f/xwpqprra"
-                  method="POST"
-                  onSubmit={handleSubmit}
-                  className="space-y-6"
-                >
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
@@ -144,9 +172,15 @@ const Contact = () => {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full" size="lg">
-                    Send Message
+                  <Button type="submit" className="w-full" size="lg" disabled={submitting}>
+                    {submitting ? "Sending..." : "Send Message"}
                   </Button>
+                  {submitStatus === "success" && (
+                    <p className="text-green-600 text-center mt-2">Your message was sent successfully!</p>
+                  )}
+                  {submitStatus === "error" && (
+                    <p className="text-red-600 text-center mt-2">There was a problem sending your message. Please try again.</p>
+                  )}
                 </form>
               </CardContent>
             </Card>
