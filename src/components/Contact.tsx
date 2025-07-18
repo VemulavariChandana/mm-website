@@ -29,7 +29,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      content: "gokulnandan003@gmail.com",
+      content: "monomoriumminimum123@gmail.com",
       description: "Professional inquiries and project discussions"
     },
     {
@@ -39,10 +39,22 @@ const Contact = () => {
       description: "Direct line for urgent consultations"
     },
     {
+      icon: Phone,
+      title: "Call Us", 
+      content: "+91 8970205457",
+      description: "Alternate contact number"
+    },
+    {
       icon: MapPin,
       title: "Visit Us",
       content: "Teachers Colony, Mulbagal, Karnataka",
       description: "kolar district, 563131"
+    },
+    {
+      icon: MapPin,
+      title: "Visit Us",
+      content: "Kadugudi, Whitefield Bengaluru",
+      description: "Bangalore, Karnataka"
     },
     {
       icon: Clock,
@@ -53,7 +65,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-concrete-gray to-background">
+    <section id="contact" className="pt-20 pb-0 bg-gradient-to-b from-concrete-gray to-background">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -79,12 +91,18 @@ const Contact = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form 
+                  action="https://formspree.io/f/xwpqprra"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                >
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
                       <Input 
                         id="name"
+                        name="name"
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
                         placeholder="Your full name"
@@ -95,6 +113,7 @@ const Contact = () => {
                       <Label htmlFor="email">Email Address *</Label>
                       <Input 
                         id="email"
+                        name="email"
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
@@ -103,21 +122,21 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  
                   <div className="space-y-2">
                     <Label htmlFor="project">Project Type</Label>
                     <Input 
                       id="project"
+                      name="project"
                       value={formData.project}
                       onChange={(e) => setFormData({...formData, project: e.target.value})}
                       placeholder="e.g., Structural Design, Infrastructure, Consulting"
                     />
                   </div>
-                  
                   <div className="space-y-2">
                     <Label htmlFor="message">Project Details *</Label>
                     <Textarea 
                       id="message"
+                      name="message"
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
                       placeholder="Describe your project requirements, timeline, and any specific challenges..."
@@ -125,7 +144,6 @@ const Contact = () => {
                       required
                     />
                   </div>
-                  
                   <Button type="submit" className="w-full" size="lg">
                     Send Message
                   </Button>
@@ -155,7 +173,13 @@ const Contact = () => {
                       </div>
                       <div>
                         <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
-                        <p className="text-foreground font-medium mb-1">{info.content}</p>
+                        {info.title === "Email Us" ? (
+                          <a href={`mailto:${info.content}`} className="text-foreground font-medium mb-1 underline hover:text-primary transition-colors">{info.content}</a>
+                        ) : info.title === "Call Us" ? (
+                          <a href={`tel:${info.content.replace(/\s+/g, '')}`} className="text-foreground font-medium mb-1 underline hover:text-primary transition-colors">{info.content}</a>
+                        ) : (
+                          <p className="text-foreground font-medium mb-1">{info.content}</p>
+                        )}
                         <p className="text-sm text-muted-foreground">{info.description}</p>
                       </div>
                     </div>
