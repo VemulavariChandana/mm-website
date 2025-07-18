@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 45 100% 50%;
+    --primary-foreground: 0 0% 8%;
+    --primary-glow: 45 100% 65%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 8%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 45 100% 50%;
+    --accent-foreground: 0 0% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 45 100% 50%;
+
+    /* Black & Yellow Design System */
+    --engineering-black: 0 0% 8%;
+    --engineering-black-light: 0 0% 15%;
+    --engineering-yellow: 45 100% 50%;
+    --engineering-yellow-light: 45 100% 65%;
+    --engineering-yellow-dark: 45 100% 35%;
+    --steel-gray: 0 0% 25%;
+    --steel-gray-light: 0 0% 45%;
+    --concrete-gray: 0 0% 85%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--engineering-black)), hsl(var(--engineering-yellow)));
+    --gradient-section: linear-gradient(180deg, hsl(var(--background)), hsl(var(--concrete-gray)));
+    
+    /* Shadows */
+    --shadow-professional: 0 10px 30px -10px hsl(var(--engineering-yellow) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(var(--steel-gray) / 0.15);
+    
+    /* Typography */
+    --font-engineering: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 45 100% 50%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 8%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 45 100% 50%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 45 100% 50%;
+    --primary-foreground: 0 0% 8%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 45 100% 50%;
+    --accent-foreground: 0 0% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 45 100% 50%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 45 100% 50%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 45 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
