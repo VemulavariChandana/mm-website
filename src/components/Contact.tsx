@@ -23,16 +23,16 @@ const Contact = () => {
     setSubmitting(true);
     setSubmitStatus(null);
     try {
-      const formElement = e.target as HTMLFormElement;
-      const formDataObj = new FormData(formElement);
-      const response = await fetch("https://formspree.io/f/xwpqprra", {
+      const response = await fetch("/api/contact", {
         method: "POST",
-        body: formDataObj,
         headers: {
+          "Content-Type": "application/json",
           "Accept": "application/json"
-        }
+        },
+        body: JSON.stringify(formData)
       });
-      if (response.ok) {
+      const result = await response.json();
+      if (result.success) {
         setSubmitStatus("success");
         toast({
           title: "Message Sent",
@@ -43,7 +43,7 @@ const Contact = () => {
         setSubmitStatus("error");
         toast({
           title: "Submission Failed",
-          description: "There was a problem sending your message. Please try again later.",
+          description: result.error || "There was a problem sending your message. Please try again later.",
           variant: "destructive"
         });
       }
