@@ -23,7 +23,7 @@ const Contact = () => {
     setSubmitting(true);
     setSubmitStatus(null);
     try {
-      const response = await fetch("/.netlify/functions/contact", {
+      const response = await fetch("https://formspree.io/f/xgvvgqnl", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const Contact = () => {
         body: JSON.stringify(formData)
       });
       const result = await response.json();
-      if (result.success) {
+      if (result.ok || result.success) {
         setSubmitStatus("success");
         toast({
           title: "Message Sent",
